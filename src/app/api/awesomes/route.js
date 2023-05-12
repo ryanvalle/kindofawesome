@@ -20,7 +20,7 @@ export async function POST(req) {
                 {
                     "property": "domain-match",
                     "title": {
-                        "equals": domain
+                        "equals": domain.split('.')[0]
                     }
                 },
                 {
