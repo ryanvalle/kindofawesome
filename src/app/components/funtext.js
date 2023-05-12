@@ -53,7 +53,7 @@ export default function Funtext() {
           className='w-screen'
         />
       </div>
-      <div className={`text-center w-screen ${isHidden ? 'opacity-0 scale-100' : 'opacity-1 scale-125'} transition-all duration-1000`}>
+      <div className={`text-center w-screen ${isHidden ? 'opacity-0 scale-100' : 'opacity-1 scale-125'} transition-all duration-1000 text-se`}>
         <h1 className={`uppercase font-bold ${oswald.className} text-6xl text-black text-shadow transform-matrix`}>{h1Text}</h1>
         <h3 className={`${roboto.className} uppercase font-bold text-black text-xl pt-[10px] transform-matrix pb-[40px]`}>{h3Text}</h3>
         {url && linktext && <Link
