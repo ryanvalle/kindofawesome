@@ -25,3 +25,28 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+h1, h3 { user-select: none; }
+h3:before, h3:after {
+  content: " ";
+  position: absolute;
+  width: 100px;
+  height: 7px;
+  border-top: 1px solid #121212;
+  border-bottom: 1px solid #121212;
+}
+
+h3:before {
+  margin: 10px 0 0 -110px;
+}
+
+h3:after {
+  margin: 10px 0 0 10px;
+}
+
+.custom-button {
+  border: 1px solid #121212;
+  box-shadow: 2px 2px #e6e6d8, 3px 4px #c6a39a
+}
+.custom-button:hover {
+  box-shadow: 4px 5px #e6e6d8, 6px 7px #c6a39a
+}
