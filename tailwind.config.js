@@ -16,9 +16,6 @@ module.exports = {
       },
       textShadow: {
         DEFAULT: '4px 5px #e6e6d8, 6px 7px #c6a39a',
-      },
-      transform: {
-        DEFAULT: 'matrix(1, -0.20, 0, 1, 0, 0)'
       }
     },
   },
@@ -31,16 +28,6 @@ module.exports = {
           }),
         },
         { values: theme('textShadow') }
-      )
-    }),
-    plugin(function ({ matchUtilities, theme }) {
-      matchUtilities(
-        {
-          'transform-matrix': (value) => ({
-            transform: value,
-          }),
-        },
-        { values: theme('transform') }
       )
     })
   ],
