@@ -7,21 +7,38 @@ export async function POST(req) {
     });
     // bb24dbc2cdf74a7d8792a7ed7153c08e
     const { domain } = await req.json();
+    let response;
 
     if (!domain) {
         return NextResponse.json({ error: 'Bad Request' });
     }
 
-    const subdomain = domain.replace('.iskindofaweso.me', '');
-    if (!subdomain.length) {
-        return {
+    if (domain === 'iskindofaweso.me') {
+        console.log('match')
+        return NextResponse.json({
             text: {
-                h1: 'Errors',
-                h3: 'are not awesome...'
+                h1: 'hello world'
             }
-        }
+        })
     }
-    const response = await notion.databases.query({
+    const subdomain = domain.replace('.iskindofaweso.me', '');
+    // 25476b578623446087283349875b7bd7
+    const redirectURLs = await notion.databases.query({
+        database_id: "25476b578623446087283349875b7bd7"
+    }).then((data) => {
+        let results = data.results;
+        return results.map((result) => {
+            let properties = result.properties;
+            return {
+                url: properties['redirect-url']['url'],
+                text: {
+                    linkText: (properties['link-text']['rich_text'][0] || {})['plain_text']
+                }
+            }
+        });
+    });
+    
+    response = await notion.databases.query({
         database_id: "bb24dbc2cdf74a7d8792a7ed7153c08e",
         filter: {
 
@@ -61,6 +78,7 @@ export async function POST(req) {
                 }
             }
         } else {
+            
             const h3Options = [
                 'is kind of awesome.',
                 'is kind of awesome?',
@@ -71,11 +89,13 @@ export async function POST(req) {
                 'is (placeholder text)'
             ]
             const select = Math.round(Math.random() * h3Options.length) - 1;
-            console.log('select:', select)
+            const urlSelect = Math.round(Math.random() * redirectURLs.length) - 1;
             return {
+                url: redirectURLs[urlSelect]['url'],
                 text: {
                     h1: subdomain,
-                    h3: h3Options[select]
+                    h3: h3Options[select],
+                    linkText: redirectURLs[urlSelect]['text']['linkText']
                 }
             }
         }
