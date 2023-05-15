@@ -12,7 +12,7 @@ export async function POST(req) {
         return NextResponse.json({ error: 'Bad Request' });
     }
 
-    const subdomain = domain.replace('iskindofaweso.me');
+    const subdomain = domain.replace('.iskindofaweso.me', '');
     if (!subdomain.length) {
         return {
             text: {
