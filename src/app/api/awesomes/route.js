@@ -12,8 +12,15 @@ export async function POST(req) {
         return NextResponse.json({ error: 'Bad Request' });
     }
 
-    const subdomain = domain.split('.')[0]
-
+    const subdomain = domain.replace('iskindofaweso.me');
+    if (!subdomain.length) {
+        return {
+            text: {
+                h1: 'Errors',
+                h3: 'are not awesome...'
+            }
+        }
+    }
     const response = await notion.databases.query({
         database_id: "bb24dbc2cdf74a7d8792a7ed7153c08e",
         filter: {
