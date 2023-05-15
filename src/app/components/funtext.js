@@ -41,7 +41,7 @@ export default function Funtext() {
                 setHidden(false)
             }, 500)
         });
-    })
+    }, [])
  
   return (
     <>
