@@ -24,28 +24,11 @@ export default function Funtext() {
     const [isHidden, setHidden] = useState(true);
     const [isPika, setPika] = useState();
 
-    if (location.host.split('.')[0].toLowerCase() === 'pikachu') {
-      
+    var isPikaPage = location.host.split('.')[0].toLowerCase() === 'pikachu';
+    var apiURL = isPikaPage ? '/api/pika' : '/api/awesomes';
+
       useEffect(() => {
-          fetch('/api/pika', {
-              method: 'POST',
-              body: JSON.stringify({domain: location.host}),
-              headers: {
-                  "Content-Type": "application/json"
-                }
-          })
-          .then((response) => response.json())
-          .then((resp) => {
-            setPika(true);
-            setURL(resp.url);
-            setTimeout(() => {
-                setHidden(false)
-            }, 500)
-          });
-      }, [])
-    } else {
-      useEffect(() => {
-        fetch('/api/awesomes', {
+        fetch(apiURL, {
             method: 'POST',
             body: JSON.stringify({domain: location.host}),
             headers: {
@@ -55,16 +38,18 @@ export default function Funtext() {
         })
         .then((response) => response.json())
         .then((resp) => {
+          setPika(isPikaPage);
+          if (!isPikaPage) {
             setH1(resp.text.h1);
             setH3(resp.text.h3);
-            setURL(resp.url);
             setLinkText(resp.text.linkText);
+          }
+            setURL(resp.url);
             setTimeout(() => {
                 setHidden(false)
             }, 500)
         });
     }, [])
-    }
  
   return (
     <>
