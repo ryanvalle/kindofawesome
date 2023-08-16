@@ -24,7 +24,7 @@ export default function Funtext() {
     const [isHidden, setHidden] = useState(true);
     const [isPika, setPika] = useState();
 
-    var isPikaPage = location.host.split('.')[0].toLowerCase() === 'pikachu';
+    var isPikaPage = window.location.host.split('.')[0].toLowerCase() === 'pikachu';
     var apiURL = isPikaPage ? '/api/pika' : '/api/awesomes';
 
       useEffect(() => {
