@@ -22,7 +22,29 @@ export default function Funtext() {
     const [url, setURL] = useState();
     const [linktext, setLinkText] = useState();
     const [isHidden, setHidden] = useState(true);
-    useEffect(() => {
+    const [isPika, setPika] = useState();
+
+    if (location.host.split('.')[0].toLowerCase() === 'pikachu') {
+      
+      useEffect(() => {
+          fetch('/api/pika', {
+              method: 'POST',
+              body: JSON.stringify({domain: location.host}),
+              headers: {
+                  "Content-Type": "application/json"
+                }
+          })
+          .then((response) => response.json())
+          .then((resp) => {
+            setPika(true);
+            setURL(resp.url);
+            setTimeout(() => {
+                setHidden(false)
+            }, 500)
+          });
+      }, [])
+    } else {
+      useEffect(() => {
         fetch('/api/awesomes', {
             method: 'POST',
             body: JSON.stringify({domain: location.host}),
@@ -42,6 +64,7 @@ export default function Funtext() {
             }, 500)
         });
     }, [])
+    }
  
   return (
     <>
@@ -54,13 +77,14 @@ export default function Funtext() {
         />
       </div>
       <div className={`text-center w-screen ${isHidden ? 'opacity-0 scale-75' : 'opacity-1 scale-100'} transition-all duration-1000 text-se`}>
-        <h1 className={`uppercase font-bold ${oswald.className} text-6xl text-black text-shadow`}>{h1Text}</h1>
-        <h3 className={`${roboto.className} uppercase font-bold text-black text-xl pt-[10px] pb-[40px]`}>{h3Text}</h3>
-        {url && linktext && <Link
+        <h1 className={`uppercase font-bold ${oswald.className} text-6xl text-black text-shadow`}>{!isPika ? h1Text : 'Pika Pika'}</h1>
+        {!isPika && <h3 className={`${roboto.className} uppercase font-bold text-black text-xl pt-[10px] pb-[40px]`}>{h3Text}</h3>}
+        {!isPika && url && linktext && <Link
             href={url} 
             target="_blank"
             className={`custom-button ${oswald.className} text-black px-[20px] py-[10px] mt-[30px] rounded-md`}>
                 {linktext}</Link>}
+        {isPika && url && <Image src={url} width={400} height={400} className='object-contain mt-5 ml-auto mr-auto'/>}
       </div>
     </>
   );
