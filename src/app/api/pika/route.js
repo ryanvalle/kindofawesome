@@ -19,7 +19,7 @@ export async function POST(req) {
         });
     });
             
-    const urlSelect = Math.round(Math.random() * imageURLs.length);
+    const urlSelect = Math.floor(Math.random() * imageURLs.length);
 
     const data =  {
         url: imageURLs[urlSelect]['image'],

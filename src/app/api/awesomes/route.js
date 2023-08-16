@@ -88,8 +88,8 @@ export async function POST(req) {
                 'is kind of awesome...',
                 'is (placeholder text)'
             ]
-            const select = Math.round(Math.random() * h3Options.length) - 1;
-            const urlSelect = Math.round(Math.random() * redirectURLs.length) - 1;
+            const select = Math.floor(Math.random() * h3Options.length);
+            const urlSelect = Math.floor(Math.random() * redirectURLs.length);
             return {
                 url: redirectURLs[urlSelect]['url'],
                 text: {
