@@ -26,7 +26,7 @@ export default function Funtext() {
     var apiURL = '/api/awesomes';
 
     if (typeof location !== 'undefined') {
-      var isPikaPage = location.host.split('.')[0].toLowerCase() === 'pikachu' || true;
+      var isPikaPage = location.host.split('.')[0].toLowerCase() === 'pikachu' || false;
       var apiURL = isPikaPage ? '/api/pika' : '/api/awesomes';
     }
 
